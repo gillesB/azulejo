@@ -25,19 +25,25 @@ def get_initial_config_content():
     return read_file(initial_config_path)
 
 def create_inicial_config_file(conf_filename):
+    #check if the path to the directory exists
+    conf_dir = os.path.dirname(conf_filename)
+    if not os.path.exists(conf_dir):
+        os.makedirs(conf_dir)
+            
     """Create a file with config values."""
     fw = open(conf_filename, 'w')
     raw_json = get_initial_config_content()
     fw.write(raw_json)
     fw.close()
 
-conf_filename = os.path.expanduser('~/.azulejorc.js')
+branch = "_branch_development"
+conf_filename = os.path.expanduser("~/.azulejo/.azulejorc" + branch + ".js")
 
 if not os.path.isfile(conf_filename):
-    print "Starting azulejo by creating file: '%s'" %(conf_filename)
+    print "Starting azulejo by creating file: '%s'" % (conf_filename)
     create_inicial_config_file(conf_filename)
 
-print "Reading config file: '%s'" %(conf_filename)
+print "Reading config file: '%s'" % (conf_filename)
 json_string = read_file(conf_filename)
 
 conf_data = json.loads(json_string)
