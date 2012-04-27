@@ -37,7 +37,7 @@ def create_inicial_config_file(conf_filename):
     fw.close()
 
 branch = "_branch_development"
-conf_filename = os.path.expanduser("~/.azulejo/.azulejorc" + branch + ".js")
+conf_filename = os.path.expanduser("~/.azulejo/azulejorc" + branch + ".js")
 
 if not os.path.isfile(conf_filename):
     print "Starting azulejo by creating file: '%s'" % (conf_filename)
