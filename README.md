@@ -22,6 +22,8 @@ You can install Azulejo using distutils or simply run the ''run.py'' file presen
 Azulejo doesn't have a GUI nor a CLI, simply use the keyboard shortcuts, whenever you need.
 The following is the default keymap (where KP stands for keypad):
 
+### Tile
+
 	Super+2		Place two windows side by side
 	Super+3		Place a window on the left half of the screen and two on the right half
 	Super+4		Arrange four windows two by two

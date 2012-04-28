@@ -18,20 +18,33 @@ geometry_to_use_index = 0
 #variable to hold the amount of windows since the last arrangement
 arrangement_size = 0
 
-def get_all_windows():
-    def get_window_from_XID(XID):
+def get_normal_windows_on_current_desktop():
+    def m_get_window_from_XID(XID):
         return gtk.gdk.window_foreign_new(XID)
     
     def f_normal_window(window):
-        if window.property_get('_NET_WM_WINDOW_TYPE')[2][0] == "_NET_WM_WINDOW_TYPE_NORMAL":
+        if window_is_on_current_desktop(window) and window_is_window_type_normal(window):
             return True
         return False
     
     windowsXID = gtk.gdk.get_default_root_window().property_get("_NET_CLIENT_LIST_STACKING")[2]
-    windows = map(get_window_from_XID, windowsXID)
+    windows = map(m_get_window_from_XID, windowsXID)
     filtered_windows = filter(f_normal_window, windows)
     filtered_windows.reverse()
     return filtered_windows
+
+def window_is_on_current_desktop(window):
+    currentDesktop = gtk.gdk.get_default_root_window().property_get("_NET_CURRENT_DESKTOP")[2][0]
+    windowIsOnDesktop = window.property_get('_NET_WM_DESKTOP')[2][0]
+    if currentDesktop == windowIsOnDesktop:
+            return True
+    return False
+
+def window_is_window_type_normal(window):
+    window_type = window.property_get('_NET_WM_WINDOW_TYPE')[2][0]
+    if window_type == "_NET_WM_WINDOW_TYPE_NORMAL":
+            return True
+    return False
 
 def parse_simple_math_expressions(expression):
     expression = str(expression)
@@ -76,12 +89,12 @@ def resize_single_window(keybind, geometries):
         geometry_to_use_index = 0
 
     geometry = map (int, geometries_numeric[geometry_to_use_index])
-    __move_and_resize_window(window, geometry)
+    _move_and_resize_window(window, geometry)
 
 def resize_windows(keybind, arrangement):
     global arrangement_size
     arrangement_numeric = parse_arrangement(arrangement)
-    filtered_windows = get_all_windows()
+    filtered_windows = get_normal_windows_on_current_desktop()
     amount_of_windows = len(filtered_windows)     
     
     if amount_of_windows < len(arrangement_numeric):
@@ -119,7 +132,7 @@ def __move_and_resize_window(window, geometry):
 def rotate_windows(keybind, dummy):
     print "rotation is disabled atm"
 #    global arrangement_size
-#    windows = get_all_windows()
+#    windows = get_normal_windows_on_current_desktop()
 #    amount_of_windows = len(windows)
 #    
 #    if amount_of_windows > arrangement_size:
@@ -164,8 +177,7 @@ callable_actions = dict(\
 )   
 
 
-def dispatcher(dis_param):
-       
+def dispatcher(dis_param):       
     func = dis_param[0]
     keybind = dis_param[1]
     param = dis_param[2]
