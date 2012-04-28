@@ -57,7 +57,7 @@ TODO: add/explain example
 
 ## Author
 
-Gilles
+Gilles   
 email: ipfh42 at yahoo d0t de
 
 ### Author of the original project
