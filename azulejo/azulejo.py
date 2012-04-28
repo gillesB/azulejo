@@ -112,7 +112,6 @@ def resize_windows(keybind, arrangement):
     
     #sort geometries of windows in such a way that, a clockwise rotation will be possible    
     windows_geo.sort(key=operator.itemgetter(0, 1))
-    print windows_geo
     if(len(windows_geo) == 4):
         windows_geo_clone = windows_geo[::]
         windows_geo[1] = windows_geo_clone[2]
@@ -141,15 +140,11 @@ def __move_and_resize_window(window, geometry):
     window.move_resize(*geometry_clone)
 
 def rotate_windows(keybind, dummy):
-    global windows_deq
-    print windows_deq
-    print windows_geo 
-    
+        
     rotation_len = len(windows_deq)
     i = 0
     while i < rotation_len:
         window = windows_deq[i]
-        print i, (i + 1 + rotation_len) % rotation_len
         geometry = windows_geo[(i + 1 + rotation_len) % rotation_len] 
         __move_and_resize_window(window, geometry)
         i += 1 
