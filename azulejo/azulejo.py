@@ -150,6 +150,9 @@ def rotate_windows(keybind, dummy):
         i += 1 
         
     windows_deq.rotate(1)
+    
+def switch_config_files():
+    pass    
 
 def print_window_info():
     window = gtk.gdk.screen_get_default().get_active_window()
@@ -162,7 +165,8 @@ callable_actions = dict(\
     resize_single_window=resize_single_window, \
     resize_windows=resize_windows, \
     rotate_windows=rotate_windows, \
-    move_single_window=move_single_window   
+    move_single_window=move_single_window, \
+    switch_config_files=switch_config_files
 )
 
 def dispatcher(dis_param):       

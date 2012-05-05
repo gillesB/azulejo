@@ -24,7 +24,7 @@ def get_initial_config_content():
     initial_config_path = os.path.join(this_dir, 'initial_config.json')
     return read_file(initial_config_path)
 
-def create_inicial_config_file(conf_filename):
+def create_initial_config_files(conf_filename):
     #check if the path to the directory exists
     conf_dir = os.path.dirname(conf_filename)
     if not os.path.exists(conf_dir):
@@ -36,14 +36,22 @@ def create_inicial_config_file(conf_filename):
     fw.write(raw_json)
     fw.close()
 
-branch = "master"
-conf_filename = os.path.expanduser("~/.azulejo/azulejorc.js")
+branch = "_switch_config_files"
+conf_filename = os.path.expanduser("~/.azulejo/azulejorc"+branch+".js")
 
 if not os.path.isfile(conf_filename):
     print "Starting azulejo by creating file: '%s'" % (conf_filename)
-    create_inicial_config_file(conf_filename)
+    create_initial_config_files(conf_filename)
 
 print "Reading config file: '%s'" % (conf_filename)
 json_string = read_file(conf_filename)
 
-conf_data = json.loads(json_string)
+interpreted_json = json.loads(json_string)
+shortcut_data = interpreted_json[0]
+conf_data = interpreted_json[1:]
+
+shortcut_filename = os.path.expanduser(shortcut_data["shortcut_file_to_load"])
+print "Reading shortcut file: '%s'" % (shortcut_filename)
+json_string = read_file(shortcut_filename)
+conf_data += json.loads(json_string)
+
