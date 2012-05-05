@@ -180,7 +180,7 @@ def run():
 
     keybinder.bind("<Super>i", print_window_info)
 
-    for action in configuration.conf_data:
+    for action in configuration.get_config_data():
         keybinds = action['keybind']
         function_name = action['function']
         function = callable_actions[function_name]

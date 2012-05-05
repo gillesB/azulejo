@@ -11,6 +11,13 @@
 import json
 import os.path
 
+branch = "_switch_config_files"
+conf_filename = "~/.azulejo/config" + branch + ".js"
+filenames = { conf_filename : "initial_config.json", \
+			 "~/.azulejo/Shortcuts/numpad" + branch + ".js" : "initial_shortcuts_numpad.json", \
+			 "~/.azulejo/Shortcuts/no_numpad" + branch + ".js" : "initial_shortcuts_no_numpad.json"}
+expanded_filenames = {}
+
 def read_file(path):
     """Returns file content as string."""
     file_handler = open(path, 'r')
@@ -18,40 +25,52 @@ def read_file(path):
     file_handler.close()
     return content
 
-def get_initial_config_content():
-    """Returns the initial config values as string."""
+def get_initial_content(filename):
+    """Returns the initial values as string."""
     this_dir = os.path.dirname(os.path.abspath(__file__))
-    initial_config_path = os.path.join(this_dir, 'initial_config.json')
+    #get the name of the appropriate initial file, then get the path of that file
+    initial_config_path = os.path.join(this_dir, filenames[filename])
     return read_file(initial_config_path)
 
-def create_initial_config_files(conf_filename):
+def create_initial_file(filename):
     #check if the path to the directory exists
-    conf_dir = os.path.dirname(conf_filename)
+    conf_dir = os.path.dirname(expanded_filenames[filename])
     if not os.path.exists(conf_dir):
         os.makedirs(conf_dir)
             
     """Create a file with config values."""
-    fw = open(conf_filename, 'w')
-    raw_json = get_initial_config_content()
+    fw = open(expanded_filenames[filename], 'w')
+    raw_json = get_initial_content(filename)
     fw.write(raw_json)
     fw.close()
+    
+def check_initial_files():
 
-branch = "_switch_config_files"
-conf_filename = os.path.expanduser("~/.azulejo/azulejorc"+branch+".js")
+	for filename in filenames.iterkeys():
+		
+		expanded_filename = os.path.expanduser(filename)
+		expanded_filenames[filename] = expanded_filename
+		if not os.path.isfile(expanded_filename):
+			print "Starting azulejo by creating file: '%s'" % (expanded_filename)
+			create_initial_file(filename)
+       
 
-if not os.path.isfile(conf_filename):
-    print "Starting azulejo by creating file: '%s'" % (conf_filename)
-    create_initial_config_files(conf_filename)
+def get_config_data():
 
-print "Reading config file: '%s'" % (conf_filename)
-json_string = read_file(conf_filename)
-
-interpreted_json = json.loads(json_string)
-shortcut_data = interpreted_json[0]
-conf_data = interpreted_json[1:]
-
-shortcut_filename = os.path.expanduser(shortcut_data["shortcut_file_to_load"])
-print "Reading shortcut file: '%s'" % (shortcut_filename)
-json_string = read_file(shortcut_filename)
-conf_data += json.loads(json_string)
+    check_initial_files()
+    
+    expanded_conf_filename = expanded_filenames[conf_filename]
+    print "Reading config file: '%s'" % (expanded_conf_filename)
+    json_string = read_file(os.path.expanduser(expanded_conf_filename))
+    
+    interpreted_json = json.loads(json_string)
+    shortcut_data = interpreted_json[0]
+    conf_data = interpreted_json[1:]
+    
+    shortcut_filename = os.path.expanduser(shortcut_data["shortcut_file_to_load"])
+    print "Reading shortcut file: '%s'" % (shortcut_filename)
+    json_string = read_file(shortcut_filename)
+    conf_data += json.loads(json_string)
+    
+    return conf_data
 

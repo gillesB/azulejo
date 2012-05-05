@@ -1,0 +1,211 @@
+[
+{
+"name" : "side-by-side",
+"keybind": ["<Super>2"],
+"function" : "resize_windows",
+"parameters":[
+    [0,0,"w/2","h"],
+    ["w/2+1",0,"w/2","h"]
+    ]
+},
+
+{
+"name":"four-pane",
+"keybind": ["<Super>4"],
+"function" : "resize_windows",
+"parameters":[
+    [0,0,"w/2","h/2"],
+    ["w/2+1",0,"w/2","h/2"],
+    [0,"h/2+1","w/2","h/2"],
+    ["w/2+1","h/2+1","w/2","h/2"]
+    ]
+},
+
+{
+"name":"one-big-two-small",
+"keybind": ["<Super>3"],
+"function" : "resize_windows",
+"parameters":[
+    [0,0,"w*0.5","h"],
+    ["w*0.5+1",0,"w*0.5","h/2"],
+    ["w*0.5+1","h/2+1","w*0.5","h/2"]
+    ]
+},
+
+{
+"name":"window-to-north",
+"description": "window-to-*: moves the window in a direction and resizes it. Using the key binding multiple times, cycles through possible window sizes",
+"keybind": ["<Ctrl><Alt>KP_Up","<Ctrl><Alt>KP_8"],
+"function" : "resize_single_window",
+"parameters":[
+    [0,0,"w","h*0.5"],
+    [0,0,"w","h*0.3"],
+    [0,0,"w","h*0.7"]
+    ]
+},
+
+{
+"name":"window-to-northeast",
+"keybind": ["<Ctrl><Alt>KP_Page_Up","<Ctrl><Alt>KP_9"],
+"function" : "resize_single_window",
+"parameters":[
+    ["w*0.5",0,"w*0.5","h*0.5"],
+    ["w*0.65",0,"w*0.35","h*0.5"],
+    ["w*0.35",0,"w*0.65","h*0.5"],
+    [0,0,"w","h*0.5"]
+    ]
+},
+
+{
+"name":"window-to-east",
+"keybind": ["<Ctrl><Alt>KP_Left","<Ctrl><Alt>KP_4"],
+"function" : "resize_single_window",
+"parameters":[
+    [0,0,"w*0.5","h"],
+    [0,0,"w*0.3","h"],
+    [0,0,"w*0.7","h"]
+    ]
+},
+
+{
+"name":"window-to-southeast",
+"keybind": ["<Ctrl><Alt>KP_Page_Down","<Ctrl><Alt>KP_3"],
+"function" : "resize_single_window",
+"parameters":[
+    ["0.5*w","h*0.5","w*0.5","h*0.5"],
+    ["0.65*w","h*0.5","w*0.35","h*0.5"],
+    ["0.35*w","h*0.5","w*0.65","h*0.5"],
+    [0,"h*0.5","w","h*0.5"]
+    ]
+},
+
+{
+"name":"window-to-south",
+"keybind": ["<Ctrl><Alt>KP_Down","<Ctrl><Alt>KP_2"],
+"function" : "resize_single_window",
+"parameters":[
+    ["0","h*0.5","w","h*0.5"],
+    ["0","h-h*0.3","w","h*0.3"],
+    ["0","h*0.7","w","h*0.7"]
+    ]
+},
+
+{
+"name":"window-to-southwest",
+"keybind": ["<Ctrl><Alt>KP_End","<Ctrl><Alt>KP_1"],
+"function" : "resize_single_window",
+"parameters":[
+    [0,"h*0.5","w*0.5","h*0.5"],
+    [0,"h*0.5","w*0.35","h*0.5"],
+    [0,"h*0.5","w*0.65","h*0.5"],
+    [0,"h*0.5","w","h*0.5"]
+    ]
+},
+
+{
+"name":"window-to-west",
+"keybind": ["<Ctrl><Alt>KP_Right","<Ctrl><Alt>KP_6"],
+"function" : "resize_single_window",
+"parameters":[
+    ["w*0.5",0,"w*0.5","h"],
+    ["w*0.7",0,"w*0.3","h"],
+    ["w*0.3",0,"w*0.7","h"]
+    ]
+},
+
+{
+"name":"window-to-northwest",
+"keybind": ["<Ctrl><Alt>KP_Home","<Ctrl><Alt>KP_7"],
+"function" : "resize_single_window",
+"parameters":[
+    [0,0,"w*0.5","h*0.5"],
+    [0,0,"w*0.35","h*0.5"],
+    [0,0,"w*0.65","h*0.5"],
+    [0,0,"w","h*0.5"]
+    ]
+},
+
+{
+"name":"window-to-center",
+"keybind": ["<Ctrl><Alt>KP_Begin","<Ctrl><Alt>KP_5"],
+"function" : "resize_single_window",
+"parameters":[
+    [0,0,"w","h"],
+    ["w*0.10",0,"w*0.80","h"],
+    ["w*0.20",0,"w*0.60","h"]
+    ]
+},
+
+{
+"name":"move-window-to-north",
+"description": "move-window-to-*: moves the window in a direction. the window keeps it's size",
+"keybind": ["<Super>KP_Up","<Super>KP_8"],
+"function" : "move_single_window",
+"parameters":["screen_width/2-window_width/2", "0"]
+},
+
+{
+"name":"move-window-to-northeast",
+"keybind": ["<Super>KP_Page_Up","<Super>KP_9"],
+"function" : "move_single_window",
+"parameters":["screen_width-window_width", "0"]
+},
+
+{
+"name":"move-window-to-east",
+"keybind": ["<Super>KP_Right","<Super>KP_6"],
+"function" : "move_single_window",
+"parameters":["screen_width-window_width", "screen_height/2-window_height/2"]
+},
+
+{
+"name":"move-window-to-southeast",
+"keybind": ["<Super>KP_Page_Down","<Super>KP_3"],
+"function" : "move_single_window",
+"parameters":["screen_width-window_width", "screen_height-window_height"]
+},
+
+{
+"name":"move-window-to-south",
+"keybind": ["<Super>KP_Down","<Super>KP_2"],
+"function" : "move_single_window",
+"parameters":["screen_width/2-window_width/2", "screen_height-window_height"]
+},
+
+{
+"name":"move-window-to-southwest",
+"keybind": ["<Super>KP_End","<Super>KP_1"],
+"function" : "move_single_window",
+"parameters":["0", "screen_height-window_height"]
+},
+
+{
+"name":"move-window-to-west",
+"keybind": ["<Super>KP_Left","<Super>KP_4"],
+"function" : "move_single_window",
+"parameters":["0", "screen_height/2-window_height/2"]
+},
+
+{
+"name":"move-window-to-northwest",
+"keybind": ["<Super>KP_Home","<Super>KP_7"],
+"function" : "move_single_window",
+"parameters":["0", "0"]
+},
+
+{
+"name":"move-window-to-center",
+"keybind": ["<Super>KP_Begin","<Super>KP_5"],
+"function" : "move_single_window",
+"parameters":["screen_width/2-window_width/2", "screen_height/2-window_height/2"]
+},
+
+{
+"name":"rotate-windows-positions",
+"description": "rotates windows' positions, rotation queue will be the size of last arrangement or, if smaller, the number of visible windows ",
+"keybind": ["<Super>r"],
+"function" : "rotate_windows",
+"parameters":[]
+}
+
+]
