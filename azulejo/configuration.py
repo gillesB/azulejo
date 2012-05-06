@@ -104,5 +104,7 @@ def switch_shortcut_file():
 	conf_file = open(expanded_conf_filename, "w")
 	conf_file.writelines(json.dumps([shortcut_data,conf_data], sort_keys=True, indent=4))
 	conf_file.close()
+	
+	return shortcut_data["shortcut_file_to_load"]
 
 

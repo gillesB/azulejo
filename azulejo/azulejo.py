@@ -171,12 +171,16 @@ def unbind_keys():
     for keystring in bound_keys:
         keybinder.unbind(keystring)
     bound_keys = []
-    
+   
+i = 0    
 def switch_config_files(dummy, dummy2):
-    configuration.switch_shortcut_file()
+    filename = configuration.switch_shortcut_file()
     unbind_keys()
     bind_keys(configuration.get_config_data)
-    #pynotify.Notification("bla", "bla").show()    
+    notification = pynotify.Notification("Switched Shortcuts", "switched to file: " + filename)
+    notification.set_urgency(pynotify.URGENCY_LOW)
+    notification.set_timeout(2000)
+    notification.show()    
 
 def print_window_info():
     window = gtk.gdk.screen_get_default().get_active_window()
@@ -204,6 +208,7 @@ bound_keys = []
 def run():
     global bound_keys
     print "Usable screen size: ", screen_width, "x" , screen_height
+    pynotify.init("Azulejo")
 
     keybinder.bind("<Super>i", print_window_info)    
 
