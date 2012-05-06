@@ -225,7 +225,7 @@ def run():
     print "Usable screen size: ", screen_width, "x" , screen_height
     pynotify.init("Azulejo")
 
-    keybinder.bind("<Super>i", print_window_info)    
+    #keybinder.bind("<Super>i", print_window_info)    
 
     bind_keys(configuration.get_config_data_first_time)       
               

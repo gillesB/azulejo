@@ -13,7 +13,7 @@ import os.path
 from collections import deque
 
 
-branch = "_switch_config_files"
+branch = ""
 conf_filename = "~/.azulejo/config" + branch + ".js"
 filenames = { conf_filename : "initial_config.json", \
 			 "~/.azulejo/Shortcuts/numpad" + branch + ".js" : "initial_shortcuts_numpad.json", \

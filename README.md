@@ -20,7 +20,9 @@ You can install Azulejo using distutils or simply run the ''run.py'' file presen
 ## Usage
 
 Azulejo doesn't have a GUI nor a CLI, simply use the keyboard shortcuts, whenever you need.
-The following is the default keymap (where KP stands for keypad):
+Azulejo comes with two default keymaps. One uses the numpad (keypad), the other not. In the following, "KP" stands for keypad:
+
+	Super+C		Switch the keymap
 
 ### Tile
 
@@ -31,29 +33,48 @@ The following is the default keymap (where KP stands for keypad):
 
 ### Move
 	Super+KP 1	Move current window to left lower corner
+	(or Super+J)	
 	Super+KP 2	Move current window to bottom of the screen
+	(or Super+K)
 	Super+KP 3	Move current window to right lower corner
+	(or Super+L)
 	Super+KP 4	Move current window to the left
+	(or Super+U)
 	Super+KP 5	Move current window to center of the screen
+	(or Super+I)
 	Super+KP 6	Move current window to the right
+	(or Super+O)
 	Super+KP 7	Move current window to left upper corner
+	(or Super+7)
 	Super+KP 8	Move current window to top of the screen
+	(or Super+8)
 	Super+KP 9	Move current window to right upper corner
+	(or Super+9)
 
 ### Move and Resize
-	Ctrl+Alt+KP 1	Resize and move current window to left lower corner
-	Ctrl+Alt+KP 2	Resize and move current window to bottom of the screen
-	Ctrl+Alt+KP 3	Resize and move current window to right lower corner
-	Ctrl+Alt+KP 4	Resize and move current window to the left
-	Ctrl+Alt+KP 5	Resize and move current window to center of the screen
-	Ctrl+Alt+KP 6	Resize and move current window to the right
-	Ctrl+Alt+KP 7	Resize and move current window to left upper corner
-	Ctrl+Alt+KP 8	Resize and move current window to top of the screen
-	Ctrl+Alt+KP 9	Resize and move current window to right upper corner	
+	Super+Alt+KP 1	Resize and move current window to left lower corner
+	(or Super+Alt+J)
+	Super+Alt+KP 2	Resize and move current window to bottom of the screen
+	(or Super+Alt+K)
+	Super+Alt+KP 3	Resize and move current window to right lower corner
+	(or Super+Alt+L)
+	Super+Alt+KP 4	Resize and move current window to the left
+	(or Super+Alt+U)
+	Super+Alt+KP 5	Resize and move current window to center of the screen
+	(or Super+Alt+I)
+	Super+Alt+KP 6	Resize and move current window to the right
+	(or Super+Alt+O)
+	Super+Alt+KP 7	Resize and move current window to left upper corner
+	(or Super+Alt+7)
+	Super+Alt+KP 8	Resize and move current window to top of the screen
+	(or Super+Alt+8)
+	Super+Alt+KP 9	Resize and move current window to right upper corner
+	(or Super+Alt+9)	
 	
 ## Configuration
 
-Azulejo configurations are stored on ''~/.azulejo/azulejorc.js''.
+Azulejo configurations are stored on ''~/.azulejo/config.js''.
+The keymaps are stored in ''~/.azulejo/Shortcuts''
 
 TODO: add/explain example
 
