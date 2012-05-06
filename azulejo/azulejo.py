@@ -88,30 +88,46 @@ def resize_single_window(keybind, geometries):
     geometry = map (int, geometries_numeric[geometry_to_use_index])
     __move_and_resize_window(window, geometry)
 
-def resize_windows(keybind, arrangement):
-    global windows_deq, windows_geo
-    
-    windows_deq.clear()
-    windows_geo = []
-    
+resize_old_keybind = ""
+def tile_windows(keybind, arrangement):
+    global windows_deq, windows_geo, resize_old_keybind
+
+    #fetch the needed data
     arrangement_numeric = parse_arrangement(arrangement)
-    filtered_windows = get_normal_windows_on_current_desktop()
-    amount_of_windows = len(filtered_windows)     
+    windows = get_normal_windows_on_current_desktop()
+    amount_of_windows = len(windows)  
     
     if amount_of_windows < len(arrangement_numeric):
         arrangement_numeric = arrangement_numeric[:amount_of_windows]
+        
+    #if the same windows should be tiled a second time, simply rotate them
+    if keybind == resize_old_keybind:
+        same_windows = True
+        for i in range(len(arrangement_numeric)):
+            if windows[i] not in windows_deq:
+                same_windows = False
+                break
+        if same_windows:
+            rotate_windows(None, None)
+            return
+    else:
+        resize_old_keybind = keybind   
   
+    #tile the windows
+    windows_deq.clear()
+    windows_geo = []   
+    
     i = 0
-    arrangement_size = len(arrangement_numeric) #global scope variable, also used to rotate windows
+    arrangement_size = len(arrangement_numeric)
     while i < arrangement_size:
-        index = i #arrangement_size - (i + 1) #we must start in the end in order to keep window order correct
+        index = i
         geometry = map (int, arrangement_numeric[index])
-        __move_and_resize_window(filtered_windows[index], geometry)
-        windows_deq.append(filtered_windows[index])
+        __move_and_resize_window(windows[index], geometry)
+        windows_deq.append(windows[index])
         windows_geo.append(geometry)
         i += 1
     
-    #sort geometries of windows in such a way that, a clockwise rotation will be possible    
+    #sort geometries of windows in such way, that they will rotate clockwise    
     windows_geo.sort(key=operator.itemgetter(0, 1))
     if(len(windows_geo) == 4):
         windows_geo_clone = windows_geo[::]
@@ -171,8 +187,7 @@ def unbind_keys():
     for keystring in bound_keys:
         keybinder.unbind(keystring)
     bound_keys = []
-   
-i = 0    
+    
 def switch_config_files(dummy, dummy2):
     filename = configuration.switch_shortcut_file()
     unbind_keys()
@@ -191,7 +206,7 @@ def print_window_info():
 
 callable_actions = dict(\
     resize_single_window=resize_single_window, \
-    resize_windows=resize_windows, \
+    tile_windows=tile_windows, \
     rotate_windows=rotate_windows, \
     move_single_window=move_single_window, \
     switch_config_files=switch_config_files
