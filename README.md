@@ -1,7 +1,7 @@
 # Azulejo
 
 Azulejo was originally a port (an attempt to) of [winsplit revolution](http://www.winsplit-revolution.com/)'s functionality to *nix desktop environments. This fork also adds Compiz's Put feature to the functionality.
-Simply put, it moves, with or without resizing, windows using keyboard shortcuts.
+Short: it moves, with or without resizing, windows using keyboard shortcuts.
 
 It has been tested on gnome2, xfce and openbox, but it should work on many other desktop environments.
 
