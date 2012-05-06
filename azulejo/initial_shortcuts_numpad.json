@@ -35,7 +35,7 @@
 {
 "name":"window-to-north",
 "description": "window-to-*: moves the window in a direction and resizes it. Using the key binding multiple times, cycles through possible window sizes",
-"keybind": ["<Ctrl><Alt>KP_Up","<Ctrl><Alt>KP_8"],
+"keybind": ["<Super><Alt>KP_Up","<Super><Alt>KP_8"],
 "function" : "resize_single_window",
 "parameters":[
     [0,0,"w","h*0.5"],
@@ -46,7 +46,7 @@
 
 {
 "name":"window-to-northeast",
-"keybind": ["<Ctrl><Alt>KP_Page_Up","<Ctrl><Alt>KP_9"],
+"keybind": ["<Super><Alt>KP_Page_Up","<Super><Alt>KP_9"],
 "function" : "resize_single_window",
 "parameters":[
     ["w*0.5",0,"w*0.5","h*0.5"],
@@ -58,18 +58,18 @@
 
 {
 "name":"window-to-east",
-"keybind": ["<Ctrl><Alt>KP_Left","<Ctrl><Alt>KP_4"],
+"keybind": ["<Super><Alt>KP_Right","<Super><Alt>KP_6"],
 "function" : "resize_single_window",
 "parameters":[
-    [0,0,"w*0.5","h"],
-    [0,0,"w*0.3","h"],
-    [0,0,"w*0.7","h"]
+    ["w*0.5",0,"w*0.5","h"],
+    ["w*0.7",0,"w*0.3","h"],
+    ["w*0.3",0,"w*0.7","h"]
     ]
 },
 
 {
 "name":"window-to-southeast",
-"keybind": ["<Ctrl><Alt>KP_Page_Down","<Ctrl><Alt>KP_3"],
+"keybind": ["<Super><Alt>KP_Page_Down","<Super><Alt>KP_3"],
 "function" : "resize_single_window",
 "parameters":[
     ["0.5*w","h*0.5","w*0.5","h*0.5"],
@@ -81,7 +81,7 @@
 
 {
 "name":"window-to-south",
-"keybind": ["<Ctrl><Alt>KP_Down","<Ctrl><Alt>KP_2"],
+"keybind": ["<Super><Alt>KP_Down","<Super><Alt>KP_2"],
 "function" : "resize_single_window",
 "parameters":[
     ["0","h*0.5","w","h*0.5"],
@@ -92,7 +92,7 @@
 
 {
 "name":"window-to-southwest",
-"keybind": ["<Ctrl><Alt>KP_End","<Ctrl><Alt>KP_1"],
+"keybind": ["<Super><Alt>KP_End","<Super><Alt>KP_1"],
 "function" : "resize_single_window",
 "parameters":[
     [0,"h*0.5","w*0.5","h*0.5"],
@@ -104,18 +104,18 @@
 
 {
 "name":"window-to-west",
-"keybind": ["<Ctrl><Alt>KP_Right","<Ctrl><Alt>KP_6"],
+"keybind": ["<Super><Alt>KP_Left","<Super><Alt>KP_4"],
 "function" : "resize_single_window",
 "parameters":[
-    ["w*0.5",0,"w*0.5","h"],
-    ["w*0.7",0,"w*0.3","h"],
-    ["w*0.3",0,"w*0.7","h"]
+    [0,0,"w*0.5","h"],
+    [0,0,"w*0.3","h"],
+    [0,0,"w*0.7","h"]
     ]
 },
 
 {
 "name":"window-to-northwest",
-"keybind": ["<Ctrl><Alt>KP_Home","<Ctrl><Alt>KP_7"],
+"keybind": ["<Super><Alt>KP_Home","<Super><Alt>KP_7"],
 "function" : "resize_single_window",
 "parameters":[
     [0,0,"w*0.5","h*0.5"],
@@ -127,7 +127,7 @@
 
 {
 "name":"window-to-center",
-"keybind": ["<Ctrl><Alt>KP_Begin","<Ctrl><Alt>KP_5"],
+"keybind": ["<Super><Alt>KP_Begin","<Super><Alt>KP_5"],
 "function" : "resize_single_window",
 "parameters":[
     [0,0,"w","h"],

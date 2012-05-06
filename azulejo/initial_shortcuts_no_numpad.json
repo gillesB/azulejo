@@ -35,7 +35,7 @@
 {
 "name":"window-to-north",
 "description": "window-to-*: moves the window in a direction and resizes it. Using the key binding multiple times, cycles through possible window sizes",
-"keybind": [""<Ctrl><Alt>8"],
+"keybind": ["<Super><Alt>8"],
 "function" : "resize_single_window",
 "parameters":[
     [0,0,"w","h*0.5"],
@@ -46,7 +46,7 @@
 
 {
 "name":"window-to-northeast",
-"keybind": ["<Ctrl><Alt>9"],
+"keybind": ["<Super><Alt>9"],
 "function" : "resize_single_window",
 "parameters":[
     ["w*0.5",0,"w*0.5","h*0.5"],
@@ -58,18 +58,18 @@
 
 {
 "name":"window-to-east",
-"keybind": ["<Ctrl><Alt>O"],
+"keybind": ["<Super><Alt>O"],
 "function" : "resize_single_window",
 "parameters":[
-    [0,0,"w*0.5","h"],
-    [0,0,"w*0.3","h"],
-    [0,0,"w*0.7","h"]
+    ["w*0.5",0,"w*0.5","h"],
+    ["w*0.7",0,"w*0.3","h"],
+    ["w*0.3",0,"w*0.7","h"]
     ]
 },
 
 {
 "name":"window-to-southeast",
-"keybind": ["<Ctrl><Alt>L"],
+"keybind": ["<Super><Alt>L"],
 "function" : "resize_single_window",
 "parameters":[
     ["0.5*w","h*0.5","w*0.5","h*0.5"],
@@ -81,7 +81,7 @@
 
 {
 "name":"window-to-south",
-"keybind": ["<Ctrl><Alt>K"],
+"keybind": ["<Super><Alt>K"],
 "function" : "resize_single_window",
 "parameters":[
     ["0","h*0.5","w","h*0.5"],
@@ -92,7 +92,7 @@
 
 {
 "name":"window-to-southwest",
-"keybind": ["<Ctrl><Alt>J"],
+"keybind": ["<Super><Alt>J"],
 "function" : "resize_single_window",
 "parameters":[
     [0,"h*0.5","w*0.5","h*0.5"],
@@ -104,18 +104,18 @@
 
 {
 "name":"window-to-west",
-"keybind": [""<Ctrl><Alt>O"],
+"keybind": ["<Super><Alt>U"],
 "function" : "resize_single_window",
 "parameters":[
-    ["w*0.5",0,"w*0.5","h"],
-    ["w*0.7",0,"w*0.3","h"],
-    ["w*0.3",0,"w*0.7","h"]
+    [0,0,"w*0.5","h"],
+    [0,0,"w*0.3","h"],
+    [0,0,"w*0.7","h"]
     ]
 },
 
 {
 "name":"window-to-northwest",
-"keybind": [""<Ctrl><Alt>7"],
+"keybind": ["<Super><Alt>7"],
 "function" : "resize_single_window",
 "parameters":[
     [0,0,"w*0.5","h*0.5"],
@@ -127,7 +127,7 @@
 
 {
 "name":"window-to-center",
-"keybind": ["<Ctrl><Alt>I"],
+"keybind": ["<Super><Alt>I"],
 "function" : "resize_single_window",
 "parameters":[
     [0,0,"w","h"],

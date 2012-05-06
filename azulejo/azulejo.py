@@ -4,6 +4,7 @@ import time
 import keybinder
 import configuration
 import operator
+import pynotify
 
 maximized_window_geometry = gtk.gdk.get_default_root_window().property_get('_NET_WORKAREA')[2][:4]
 upper_corner = maximized_window_geometry[:2]
@@ -150,9 +151,32 @@ def rotate_windows(keybind, dummy):
         i += 1 
         
     windows_deq.rotate(1)
+
+def bind_keys(get_config_data_function):
+    for action in get_config_data_function():
+        keybinds = action['keybind']
+        function_name = action['function']
+        function = callable_actions[function_name]
+        parameters = action['parameters']
+        dispacher_parameters = [function, keybinds, parameters]        
+        
+        for keybind in keybinds:
+            if keybinder.bind(keybind, dispatcher , dispacher_parameters):
+                bound_keys.append(keybind)
+            else:
+                print keybind, "was not bound successfully"    
+
+def unbind_keys():
+    global bound_keys
+    for keystring in bound_keys:
+        keybinder.unbind(keystring)
+    bound_keys = []
     
-def switch_config_files():
-    pass    
+def switch_config_files(dummy, dummy2):
+    configuration.switch_shortcut_file()
+    unbind_keys()
+    bind_keys(configuration.get_config_data)
+    #pynotify.Notification("bla", "bla").show()    
 
 def print_window_info():
     window = gtk.gdk.screen_get_default().get_active_window()
@@ -174,22 +198,15 @@ def dispatcher(dis_param):
     keybind = dis_param[1]
     param = dis_param[2]
     func(keybind, param)    
+   
+bound_keys = []
     
 def run():
+    global bound_keys
     print "Usable screen size: ", screen_width, "x" , screen_height
 
-    keybinder.bind("<Super>i", print_window_info)
+    keybinder.bind("<Super>i", print_window_info)    
 
-    for action in configuration.get_config_data():
-        keybinds = action['keybind']
-        function_name = action['function']
-        function = callable_actions[function_name]
-        parameters = action['parameters']
-        dispacher_parameters = [function, keybinds, parameters]        
-        
-        for keybind in keybinds:
-            if not keybinder.bind(keybind, dispatcher , dispacher_parameters):
-                print keybind, "was not bound successfully"
+    bind_keys(configuration.get_config_data_first_time)       
               
-
     gtk.main()
