@@ -2,7 +2,7 @@
 {
 "name" : "side-by-side",
 "keybind": ["<Super>2"],
-"function" : "resize_windows",
+"function" : "tile_windows",
 "parameters":[
     [0,0,"w/2","h"],
     ["w/2+1",0,"w/2","h"]
@@ -12,7 +12,7 @@
 {
 "name":"four-pane",
 "keybind": ["<Super>4"],
-"function" : "resize_windows",
+"function" : "tile_windows",
 "parameters":[
     [0,0,"w/2","h/2"],
     ["w/2+1",0,"w/2","h/2"],
@@ -24,7 +24,7 @@
 {
 "name":"one-big-two-small",
 "keybind": ["<Super>3"],
-"function" : "resize_windows",
+"function" : "tile_windows",
 "parameters":[
     [0,0,"w*0.5","h"],
     ["w*0.5+1",0,"w*0.5","h/2"],
