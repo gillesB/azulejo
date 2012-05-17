@@ -147,7 +147,7 @@ def __move_and_resize_window(window, geometry):
     geometry_clone[1] += upper_corner[1]
     
     #subtract frame width from window size
-    window_frame_widths = window.property_get("_NET_FRAME_EXTENTS")[2]
+    window_frame_widths = __get_frame_widths_of_window(window)
     window_frame_width_left_and_right = window_frame_widths[0] + window_frame_widths[1]
     geometry_clone[2] -= window_frame_width_left_and_right
     
@@ -155,6 +155,14 @@ def __move_and_resize_window(window, geometry):
     geometry_clone[3] -= window_frame_width_top_and_bottom
     
     window.move_resize(*geometry_clone)
+    
+def __get_frame_widths_of_window(window):
+    #sometimes the frame widths is not known
+     ewmh_frame = window.property_get("_NET_FRAME_EXTENTS")
+     if (ewmh_frame != None):
+         return ewmh_frame[2]
+     else:
+         return [0, 0, 0, 0]
 
 def rotate_windows(keybind, dummy):
         
@@ -201,7 +209,7 @@ def print_window_info():
     window = gtk.gdk.screen_get_default().get_active_window()
     assert isinstance(window, gtk.gdk.Window)
     print "Window title: ", window.property_get('_NET_WM_NAME')
-    print "Window size: ", window.get_size(), "+ frame size: ", window.property_get("_NET_FRAME_EXTENTS")[2]
+    print "Window size: ", window.get_size(), "+ frame size: ", __get_frame_widths_of_window(window)
     print "Window position", window.get_position()
 
 callable_actions = dict(\
@@ -225,7 +233,7 @@ def run():
     print "Usable screen size: ", screen_width, "x" , screen_height
     pynotify.init("Azulejo")
 
-    #keybinder.bind("<Super>i", print_window_info)    
+    keybinder.bind("<Super>i", print_window_info)    
 
     bind_keys(configuration.get_config_data_first_time)       
               
