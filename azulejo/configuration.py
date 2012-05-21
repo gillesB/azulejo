@@ -61,7 +61,6 @@ def check_initial_files():
 def get_config_data():
     
     expanded_conf_filename = expanded_filenames[conf_filename]
-    print "Reading config file: '%s'" % (expanded_conf_filename)
     json_string = read_file(os.path.expanduser(expanded_conf_filename))
     
     interpreted_json = json.loads(json_string)
@@ -69,7 +68,6 @@ def get_config_data():
     conf_data = interpreted_json[1:]
     
     shortcut_filename = os.path.expanduser(shortcut_data["shortcut_file_to_load"])
-    print "Reading shortcut file: '%s'" % (shortcut_filename)
     json_string = read_file(shortcut_filename)
     conf_data += json.loads(json_string)
     
@@ -86,12 +84,10 @@ def get_config_data_first_time():
 def switch_shortcut_file():
 	global shortcut_filenames
 	expanded_conf_filename = expanded_filenames[conf_filename]
-	print "Reading config file: '%s'" % (expanded_conf_filename)
 	json_string = read_file(os.path.expanduser(expanded_conf_filename))
 	
 	interpreted_json = json.loads(json_string)
 	shortcut_data = interpreted_json[0]
-	conf_data = interpreted_json[1]
 	
 	for filename in shortcut_filenames:
 		if filename != shortcut_data["shortcut_file_to_load"]:
@@ -102,7 +98,7 @@ def switch_shortcut_file():
 			
 	print "Switched to Shortcut file: '%s'" % (shortcut_data["shortcut_file_to_load"])		
 	conf_file = open(expanded_conf_filename, "w")
-	conf_file.writelines(json.dumps([shortcut_data,conf_data], sort_keys=True, indent=4))
+	conf_file.writelines(json.dumps([shortcut_data], sort_keys=True, indent=4))
 	conf_file.close()
 	
 	return shortcut_data["shortcut_file_to_load"]

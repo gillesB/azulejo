@@ -1,11 +1,4 @@
 [
 {"shortcut_file_to_load" : "~/.azulejo/Shortcuts/numpad.js"
-},
-
-{
-"name" : "switch config files",
-"keybind": ["<Super>C"],
-"function" : "switch_config_files",
-"parameters":[]
 }
 ]

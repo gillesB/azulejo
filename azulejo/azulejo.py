@@ -136,7 +136,6 @@ def tile_windows(keybind, arrangement):
         windows_geo[3] = windows_geo_clone[1]
 
 def __move_and_resize_window(window, geometry):
-
     geometry_clone = geometry[::]
 
     window.unmaximize()
@@ -196,7 +195,7 @@ def unbind_keys():
         keybinder.unbind(keystring)
     bound_keys = []
     
-def switch_config_files(dummy, dummy2):
+def switch_config_files():
     filename = configuration.switch_shortcut_file()
     unbind_keys()
     bind_keys(configuration.get_config_data)
@@ -233,7 +232,8 @@ def run():
     print "Usable screen size: ", screen_width, "x" , screen_height
     pynotify.init("Azulejo")
 
-    keybinder.bind("<Super>i", print_window_info)    
+    keybinder.bind("<Super>i", print_window_info)
+    keybinder.bind("<Super>c", switch_config_files)       
 
     bind_keys(configuration.get_config_data_first_time)       
               
