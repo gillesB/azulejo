@@ -5,11 +5,20 @@ import keybinder
 import configuration
 import operator
 import pynotify
+from Window import Window
 
-maximized_window_geometry = gtk.gdk.get_default_root_window().property_get('_NET_WORKAREA')[2][:4]
-upper_corner = maximized_window_geometry[:2]
-screen_width = maximized_window_geometry[2]
-screen_height = maximized_window_geometry[3]
+from Xlib.display import Display
+from Xlib import X, XK, Xatom, Xutil, protocol
+import Xlib
+
+_display = Display()
+_root_window = _display.screen().root
+_atom = _display.intern_atom
+_workarea = _root_window.get_full_property(_atom("_NET_WORKAREA"), Xlib.X.AnyPropertyType).value
+#maximized_window_geometry = gtk.gdk.get_default_root_window().property_get('_NET_WORKAREA')[2][:4]
+upper_corner = _workarea[:2]
+screen_width = _workarea[2]
+screen_height = _workarea[3]
 
 geometry_to_use_index = 0
 windows_deq = deque()
@@ -17,29 +26,29 @@ windows_geo = []
 
 def get_normal_windows_on_current_desktop():
     def m_get_window_from_XID(XID):
-        return gtk.gdk.window_foreign_new(XID)
+        return Window(XID)
     
     def f_normal_window(window):
         if window_is_on_current_desktop(window) and window_is_window_type_normal(window):
             return True
         return False
     
-    XIDs = gtk.gdk.get_default_root_window().property_get("_NET_CLIENT_LIST_STACKING")[2]
+    XIDs = _root_window.get_full_property(_atom("_NET_CLIENT_LIST_STACKING"), Xlib.X.AnyPropertyType).value
     windows = map(m_get_window_from_XID, XIDs)
     filtered_windows = filter(f_normal_window, windows)
     filtered_windows.reverse()
     return filtered_windows
 
 def window_is_on_current_desktop(window):
-    current_desktop = gtk.gdk.get_default_root_window().property_get("_NET_CURRENT_DESKTOP")[2][0]
-    window_is_on_desktop = window.property_get('_NET_WM_DESKTOP')[2][0]
-    if current_desktop == window_is_on_desktop:
+    assert isinstance(window, Window)
+    current_desktop = _root_window.get_full_property(_atom("_NET_CURRENT_DESKTOP"), Xlib.X.AnyPropertyType).value[0]
+    if current_desktop == window.is_on_desktop():
             return True
     return False
 
 def window_is_window_type_normal(window):
-    window_type = window.property_get('_NET_WM_WINDOW_TYPE')[2][0]
-    if window_type == "_NET_WM_WINDOW_TYPE_NORMAL":
+    assert isinstance(window, Window)
+    if window.get_window_type() == _atom("_NET_WM_WINDOW_TYPE_NORMAL"):
             return True
     return False
 
@@ -55,24 +64,26 @@ def parse_geometry(geometry):
 def parse_arrangement(arrangement):
     return map(parse_geometry, arrangement)
 
-def move_single_window(keybind, geometries):
-    default_screen = gtk.gdk.screen_get_default()
-    assert isinstance(default_screen, gtk.gdk.Screen)
+def move_single_window(keybind, geometries):   
+    active_window = get_active_window()
+    assert isinstance(active_window, Window)
     
-    active_window = default_screen.get_active_window()
-    assert isinstance(active_window, gtk.gdk.Window)
-    
-    window_size = active_window.get_size()
-    window_width = window_size[0]
-    window_height = window_size[1]
+    window_geometry = active_window.get_geometry()
+    window_width = window_geometry["width"]
+    window_height = window_geometry["height"]
 
+    print geometries[0]
     active_window.move(eval(geometries[0]), eval(geometries[1]))
+
+def get_active_window():
+    XID = _root_window.get_full_property(_atom("_NET_ACTIVE_WINDOW"), 0).value[0]
+    return Window(XID)
 
 resize_old_keybind = ""
 def resize_single_window(keybind, geometries):
     global geometry_to_use_index, resize_old_keybind
-    window = gtk.gdk.screen_get_default().get_active_window()
-    assert isinstance(window, gtk.gdk.Window)    
+    window = get_active_window()
+    assert isinstance(window, Window) 
 
     #not an arrangement, but a list of geometries for that matter
     #geometry consists of the position X, position Y, width, height 
@@ -134,35 +145,21 @@ def tile_windows(keybind, arrangement):
         windows_geo[1] = windows_geo_clone[2]
         windows_geo[2] = windows_geo_clone[3]
         windows_geo[3] = windows_geo_clone[1]
+    print windows_geo
 
 def __move_and_resize_window(window, geometry):
+    assert isinstance(window, Window)
     geometry_clone = geometry[::]
 
-    window.unmaximize()
+    #window.unmaximize()
     
     #add the upper corner to the position of the window
     #e.g. position 0,0 is somewhere in the upper panel, so the window has to be positioned just below the panel  
     geometry_clone[0] += upper_corner[0]
     geometry_clone[1] += upper_corner[1]
     
-    #subtract frame width from window size
-    window_frame_widths = __get_frame_widths_of_window(window)
-    window_frame_width_left_and_right = window_frame_widths[0] + window_frame_widths[1]
-    geometry_clone[2] -= window_frame_width_left_and_right
+    window.move_and_resize(*geometry_clone)
     
-    window_frame_width_top_and_bottom = window_frame_widths[2] + window_frame_widths[3]
-    geometry_clone[3] -= window_frame_width_top_and_bottom
-    
-    window.move_resize(*geometry_clone)
-    
-def __get_frame_widths_of_window(window):
-    #sometimes the frame widths is not known
-     ewmh_frame = window.property_get("_NET_FRAME_EXTENTS")
-     if (ewmh_frame != None):
-         return ewmh_frame[2]
-     else:
-         return [0, 0, 0, 0]
-
 def rotate_windows(keybind, dummy):
         
     rotation_len = len(windows_deq)
@@ -173,8 +170,9 @@ def rotate_windows(keybind, dummy):
         __move_and_resize_window(window, geometry)
         i += 1 
         
-    windows_deq.rotate(1)
+    windows_deq.rotate()
 
+bound_keys = []
 def bind_keys(get_config_data_function):
     for action in get_config_data_function():
         keybinds = action['keybind']
@@ -205,11 +203,12 @@ def switch_config_files():
     notification.show()    
 
 def print_window_info():
-    window = gtk.gdk.screen_get_default().get_active_window()
-    assert isinstance(window, gtk.gdk.Window)
-    print "Window title: ", window.property_get('_NET_WM_NAME')
-    print "Window size: ", window.get_size(), "+ frame size: ", __get_frame_widths_of_window(window)
-    print "Window position", window.get_position()
+    window = get_active_window()
+    assert isinstance(window, Window)
+    window_geometry = window.get_geometry()
+    print "Window title: ", window.get_name()
+    print "Window width and height", window_geometry["width"], window_geometry["height"] , "+ frame size: ", window.get_frame_extents()
+    print "Window position", window_geometry["x"], window_geometry["y"]
 
 callable_actions = dict(\
     resize_single_window=resize_single_window, \
@@ -225,16 +224,14 @@ def dispatcher(dis_param):
     param = dis_param[2]
     func(keybind, param)    
    
-bound_keys = []
-    
+   
 def run():
-    global bound_keys
     print "Usable screen size: ", screen_width, "x" , screen_height
     pynotify.init("Azulejo")
 
-    keybinder.bind("<Super>i", print_window_info)
+    keybinder.bind("<Super>y", print_window_info)
     keybinder.bind("<Super>c", switch_config_files)       
 
-    bind_keys(configuration.get_config_data_first_time)       
-              
-    gtk.main()
+    bind_keys(configuration.get_config_data_first_time)
+    
+    gtk.main()     
