@@ -1,6 +1,5 @@
-import gtk
 from collections import deque
-import time
+import gtk
 import keybinder
 import configuration
 import operator
@@ -8,13 +7,13 @@ import pynotify
 from Window import Window
 
 from Xlib.display import Display
-from Xlib import X, XK, Xatom, Xutil, protocol
-import Xlib
+from Xlib import X
+
 
 _display = Display()
 _root_window = _display.screen().root
 _atom = _display.intern_atom
-_workarea = _root_window.get_full_property(_atom("_NET_WORKAREA"), Xlib.X.AnyPropertyType).value
+_workarea = _root_window.get_full_property(_atom("_NET_WORKAREA"), X.AnyPropertyType).value
 #maximized_window_geometry = gtk.gdk.get_default_root_window().property_get('_NET_WORKAREA')[2][:4]
 upper_corner = _workarea[:2]
 screen_width = _workarea[2]
@@ -33,7 +32,7 @@ def get_normal_windows_on_current_desktop():
             return True
         return False
     
-    XIDs = _root_window.get_full_property(_atom("_NET_CLIENT_LIST_STACKING"), Xlib.X.AnyPropertyType).value
+    XIDs = _root_window.get_full_property(_atom("_NET_CLIENT_LIST_STACKING"), X.AnyPropertyType).value
     windows = map(m_get_window_from_XID, XIDs)
     filtered_windows = filter(f_normal_window, windows)
     filtered_windows.reverse()
@@ -41,7 +40,7 @@ def get_normal_windows_on_current_desktop():
 
 def window_is_on_current_desktop(window):
     assert isinstance(window, Window)
-    current_desktop = _root_window.get_full_property(_atom("_NET_CURRENT_DESKTOP"), Xlib.X.AnyPropertyType).value[0]
+    current_desktop = _root_window.get_full_property(_atom("_NET_CURRENT_DESKTOP"), X.AnyPropertyType).value[0]
     if current_desktop == window.is_on_desktop():
             return True
     return False
@@ -234,4 +233,4 @@ def run():
 
     bind_keys(configuration.get_config_data_first_time)
     
-    gtk.main()     
+    gtk.main()    
