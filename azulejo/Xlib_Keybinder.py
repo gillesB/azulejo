@@ -33,7 +33,7 @@ class Xlib_Keybinder(object):
             return False
         
     def handle_event(self,aEvent):
-        
+        pass
         
         
         
