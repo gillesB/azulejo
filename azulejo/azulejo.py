@@ -3,6 +3,7 @@ import keybinder
 import configuration
 import pynotify
 from Workarea import Workarea
+from WindowHandler import WindowHandler
 
 def run():
     Azulejo()
@@ -38,10 +39,10 @@ class Azulejo:
     
     def define_callable_actions(self):
         self.callable_actions = dict(\
-            resize_single_window=self.workarea.resize_single_window, \
-            tile_windows=self.workarea.tile_windows, \
-            rotate_windows=self.workarea.rotate_windows, \
-            move_single_window=self.workarea.move_single_window
+            resize_single_window=WindowHandler.resize_single_window, \
+            tile_windows=WindowHandler.tile_windows, \
+            rotate_windows=WindowHandler.rotate_windows, \
+            move_single_window=WindowHandler.move_single_window
         )
     
     def dispatcher(self, dis_param):       
