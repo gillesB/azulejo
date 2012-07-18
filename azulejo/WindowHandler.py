@@ -74,7 +74,7 @@ class WindowHandler(object):
       
         #tile the windows
         WindowHandler.windows_deq.clear()
-        windows_geo = []   
+        WindowHandler.windows_geo = []   
         
         i = 0
         arrangement_size = len(arrangement_numeric)
@@ -83,17 +83,16 @@ class WindowHandler(object):
             geometry = map (int, arrangement_numeric[index])
             windows[index].move_and_resize(*geometry)
             WindowHandler.windows_deq.append(windows[index])
-            windows_geo.append(geometry)
+            WindowHandler.windows_geo.append(geometry)
             i += 1
         
         #sort geometries of windows in such way, that they will rotate clockwise    
-        windows_geo.sort(key=operator.itemgetter(0, 1))
-        if(len(windows_geo) == 4):
-            windows_geo_clone = windows_geo[::]
-            windows_geo[1] = windows_geo_clone[2]
-            windows_geo[2] = windows_geo_clone[3]
-            windows_geo[3] = windows_geo_clone[1]
-        print windows_geo
+        WindowHandler.windows_geo.sort(key=operator.itemgetter(0, 1))
+        if(len(WindowHandler.windows_geo) == 4):
+            windows_geo_clone = WindowHandler.windows_geo[::]
+            WindowHandler.windows_geo[1] = windows_geo_clone[2]
+            WindowHandler.windows_geo[2] = windows_geo_clone[3]
+            WindowHandler.windows_geo[3] = windows_geo_clone[1]
     
     @staticmethod    
     def rotate_windows(keybind, dummy):

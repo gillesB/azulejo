@@ -35,11 +35,21 @@ class Window:
         return self.get_property_value("_NET_WM_WINDOW_TYPE")[0]
         
     def get_property_value(self, name):
-        property = self.XWindow.get_full_property(self.__display.intern_atom(name), X.AnyPropertyType)
-        if property != None:
-            return property.value
+        propt = self.XWindow.get_full_property(self.__display.intern_atom(name), X.AnyPropertyType)
+        if propt != None:
+            return propt.value
         else:
             return None
+        
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.XWindow == other.XWindow
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+    
             
         
         
