@@ -4,7 +4,6 @@ Created on Jul 12, 2012
 @author: me
 '''
 from Window import Window
-from Workarea import Workarea
 import operator
 from GeometryParser import GeometryParser
 from WindowFetcher import WindowFetcher
@@ -21,35 +20,31 @@ class WindowHandler(object):
     windows_geo = []
     
     @staticmethod
-    def move_single_window(keybind, geometries):   
-        active_window = Workarea.get_active_window()
+    def move_single_window(keybind, geometry):   
+        active_window = WindowFetcher.get_active_window()
         assert isinstance(active_window, Window)
-        
-        window_geometry = active_window.get_geometry()
-        window_width = window_geometry["width"]
-        window_height = window_geometry["height"]
     
-        print geometries[0]
-        active_window.move(eval(geometries[0]), eval(geometries[1]))
+        parsed_geometry = GeometryParser.parse_window_move_geometry(active_window, geometry)
+        geometry = map (int, parsed_geometry)
+ 
+        active_window.move(*parsed_geometry)
         
     
     @staticmethod
     def resize_single_window(keybind, geometries):
-        window = Workarea.get_active_window()
+        window = WindowFetcher.get_active_window()
         assert isinstance(window, Window) 
-    
-        #not an arrangement, but a list of geometries for that matter
-        #geometry consists of the position X, position Y, width, height 
-        geometries_numeric = GeometryParser.parse_arrangement(geometries)
         
         if WindowHandler.resize_old_keybind == keybind:
-            WindowHandler.geometry_to_use_index = (WindowHandler.geometry_to_use_index + 1) % len(geometries_numeric)
+            WindowHandler.geometry_to_use_index = (WindowHandler.geometry_to_use_index + 1) % len(geometries)
         else:
             WindowHandler.resize_old_keybind = keybind    
             WindowHandler.geometry_to_use_index = 0
-    
-        geometry = map (int, geometries_numeric[WindowHandler.geometry_to_use_index])
-        print geometry
+            
+        #geometry consists of the position X, position Y, width, height 
+        geometry_numeric = GeometryParser.parse_geometry(geometries[WindowHandler.geometry_to_use_index])
+        print   geometry_numeric 
+        geometry = map (int, geometry_numeric)
         window.move_and_resize(*geometry)
         
 

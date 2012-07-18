@@ -4,6 +4,7 @@ import configuration
 import pynotify
 from Workarea import Workarea
 from WindowHandler import WindowHandler
+from WindowFetcher import WindowFetcher
 
 def run():
     Azulejo()
@@ -49,7 +50,8 @@ class Azulejo:
         func = dis_param[0]
         keybind = dis_param[1]
         param = dis_param[2]
-        func(keybind, param)    
+        #clone the parameter otherwise the could be overwritten
+        func(keybind, param[::])    
        
        
     def __init__(self):
@@ -59,7 +61,7 @@ class Azulejo:
         #print "Usable screen size: ", screen_width, "x" , screen_height
         pynotify.init("Azulejo")
     
-        keybinder.bind("<Super>y", self.workarea.print_window_info)
+        keybinder.bind("<Super>y", WindowFetcher.print_window_info)
         keybinder.bind("<Super>c", self.switch_config_files)       
     
         self.bind_keys(configuration.get_config_data_first_time)

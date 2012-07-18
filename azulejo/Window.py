@@ -1,5 +1,6 @@
 from Xlib.display import Display
 from Xlib import X, protocol
+from Workarea import Workarea
 
 class Window:
     """A wrapper class for Xlib Windows"""    
@@ -118,6 +119,9 @@ class Window:
     def move_and_resize(self, x, y, width, height):
         
         self.reset()
+        
+        x += Workarea.get_upper_corner_X()
+        y += Workarea.get_upper_corner_Y()
         
         #subtract frame extents from window size
         frame_extents = self.get_frame_extents()
