@@ -141,49 +141,49 @@
 "description": "move-window-to-*: moves the window in a direction. the window keeps it's size",
 "keybind": ["<Super>8"],
 "function" : "move_single_window",
-"parameters":["screen_width/2-window_width/2", "0"]
+"parameters":["w/2-ww/2", "0"]
 },
 
 {
 "name":"move-window-to-northeast",
 "keybind": ["<Super>9"],
 "function" : "move_single_window",
-"parameters":["screen_width-window_width", "0"]
+"parameters":["w-ww", "0"]
 },
 
 {
 "name":"move-window-to-east",
 "keybind": ["<Super>O"],
 "function" : "move_single_window",
-"parameters":["screen_width-window_width", "screen_height/2-window_height/2"]
+"parameters":["w-ww", "h/2-wh/2"]
 },
 
 {
 "name":"move-window-to-southeast",
 "keybind": ["<Super>L"],
 "function" : "move_single_window",
-"parameters":["screen_width-window_width", "screen_height-window_height"]
+"parameters":["w-ww", "h-wh"]
 },
 
 {
 "name":"move-window-to-south",
 "keybind": ["<Super>K"],
 "function" : "move_single_window",
-"parameters":["screen_width/2-window_width/2", "screen_height-window_height"]
+"parameters":["w/2-ww/2", "h-wh"]
 },
 
 {
 "name":"move-window-to-southwest",
 "keybind": ["<Super>J"],
 "function" : "move_single_window",
-"parameters":["0", "screen_height-window_height"]
+"parameters":["0", "h-wh"]
 },
 
 {
 "name":"move-window-to-west",
 "keybind": ["<Super>U"],
 "function" : "move_single_window",
-"parameters":["0", "screen_height/2-window_height/2"]
+"parameters":["0", "h/2-wh/2"]
 },
 
 {
@@ -197,7 +197,7 @@
 "name":"move-window-to-center",
 "keybind": ["<Super>I"],
 "function" : "move_single_window",
-"parameters":["screen_width/2-window_width/2", "screen_height/2-window_height/2"]
+"parameters":["w/2-ww/2", "h/2-wh/2"]
 },
 
 {
