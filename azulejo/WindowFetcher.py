@@ -10,7 +10,7 @@ class WindowFetcher(object):
     
     @staticmethod
     def get_active_window():
-        XID = Workarea._root_window.get_full_property(Workarea._atom("_NET_ACTIVE_WINDOW"), 0).value[0]
+        XID = Workarea._root_window.get_full_property(Workarea.atom("_NET_ACTIVE_WINDOW"), 0).value[0]
         return Window(XID)
     
     @staticmethod
@@ -48,7 +48,7 @@ class WindowFetcher(object):
     @staticmethod      
     def window_is_window_type_normal(window):
         assert isinstance(window, Window)
-        if window.get_window_type() == Workarea._atom("_NET_WM_WINDOW_TYPE_NORMAL"):
+        if window.get_window_type() == Workarea.atom("_NET_WM_WINDOW_TYPE_NORMAL"):
                 return True
         return False
 

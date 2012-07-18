@@ -1,10 +1,11 @@
 import gtk
-import keybinder
 import configuration
 import pynotify
 from Workarea import Workarea
 from WindowHandler import WindowHandler
 from WindowFetcher import WindowFetcher
+from XlibKeybinder import XlibKeybinder
+from Event import Event
 
 def run():
     Azulejo()
@@ -19,7 +20,7 @@ class Azulejo:
             dispacher_parameters = [function, keybinds, parameters]        
             
             for keybind in keybinds:
-                if keybinder.bind(keybind, self.dispatcher , dispacher_parameters):
+                if self.keybinder.bind(keybind, self.dispatcher, dispacher_parameters):
                     self.bound_keys.append(keybind)
                 else:
                     print keybind, "was not bound successfully"    
@@ -60,10 +61,19 @@ class Azulejo:
         self.define_callable_actions()
         #print "Usable screen size: ", screen_width, "x" , screen_height
         pynotify.init("Azulejo")
+        
+        self.keybinder = XlibKeybinder()
     
-        keybinder.bind("<Super>y", WindowFetcher.print_window_info)
-        keybinder.bind("<Super>c", self.switch_config_files)       
+        self.keybinder.bind("<Super>c", self.switch_config_files)
+        self.keybinder.bind("<Super>y", WindowFetcher.print_window_info)       
     
         self.bind_keys(configuration.get_config_data_first_time)
         
-        gtk.main()    
+        while True:
+            # This loads up the next event.
+            e = Event()
+            # If the event is a key press, we need to call our
+            # dispatcher to run the proper tiling action.
+            if e.is_keypress():
+                XlibKeybinder.dispatch(e.get_keycode(), e.get_masks())
+        #gtk.main()
