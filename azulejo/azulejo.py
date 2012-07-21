@@ -1,11 +1,10 @@
 import gtk
+import keybinder
 import configuration
 import pynotify
 from Workarea import Workarea
 from WindowHandler import WindowHandler
 from WindowFetcher import WindowFetcher
-from XlibKeybinder import XlibKeybinder
-from Event import Event
 
 def run():
     Azulejo()
@@ -17,13 +16,13 @@ class Azulejo:
             function_name = action['function']
             function = self.callable_actions[function_name]
             parameters = action['parameters']
-            dispacher_parameters = [function, keybinds, parameters]        
+            dispacher_parameters = [function, keybinds, parameters]
             
             for keybind in keybinds:
-                if self.keybinder.bind(keybind, self.dispatcher, dispacher_parameters):
+                if keybinder.bind(keybind, self.dispatcher , dispacher_parameters):
                     self.bound_keys.append(keybind)
                 else:
-                    print keybind, "was not bound successfully"    
+                    print keybind, "was not bound successfully"
     
     def unbind_keys(self):
         for keystring in self.bound_keys:
@@ -47,12 +46,12 @@ class Azulejo:
             move_single_window=WindowHandler.move_single_window
         )
     
-    def dispatcher(self, dis_param):       
+    def dispatcher(self, dis_param):
         func = dis_param[0]
         keybind = dis_param[1]
         param = dis_param[2]
         #clone the parameter otherwise the could be overwritten
-        func(keybind, param[::])    
+        func(keybind, param[::])
        
        
     def __init__(self):
@@ -61,19 +60,10 @@ class Azulejo:
         self.define_callable_actions()
         #print "Usable screen size: ", screen_width, "x" , screen_height
         pynotify.init("Azulejo")
-        
-        self.keybinder = XlibKeybinder()
     
-        self.keybinder.bind("<Super>c", self.switch_config_files)
-        self.keybinder.bind("<Super>y", WindowFetcher.print_window_info)       
+        keybinder.bind("<Super>y", WindowFetcher.print_window_info)
+        keybinder.bind("<Super>c", self.switch_config_files)
     
         self.bind_keys(configuration.get_config_data_first_time)
         
-        while True:
-            # This loads up the next event.
-            e = Event()
-            # If the event is a key press, we need to call our
-            # dispatcher to run the proper tiling action.
-            if e.is_keypress():
-                XlibKeybinder.dispatch(e.get_keycode(), e.get_masks())
-        #gtk.main()
+        gtk.main() 
