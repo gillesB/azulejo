@@ -197,7 +197,7 @@
 "name":"move-window-to-center",
 "keybind": ["<Super>KP_Begin","<Super>KP_5"],
 "function" : "move_single_window",
-"parameters":["w/2-ww/2-wfl", "h/2-wh/2"]
+"parameters":["w/2-ww/2-wfl", "h/2-wh/2-wft"]
 },
 
 {
