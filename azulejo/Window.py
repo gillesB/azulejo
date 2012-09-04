@@ -31,8 +31,8 @@ class Window:
         x += Workarea.get_upper_corner_X()
         y += Workarea.get_upper_corner_Y()
         
-        frame_extents = self.get_frame_extents()
-        x -= (frame_extents["left"] + frame_extents["right"])
+        #frame_extents = self.get_frame_extents()
+        #x -= (frame_extents["left"] + frame_extents["right"])
         #y -= (frame_extents[2] + frame_extents[3])
         
         print x,y        
