@@ -18,6 +18,8 @@ class WindowFetcher(object):
         window = WindowFetcher.get_active_window()
         assert isinstance(window, Window)
         window_geometry = window.get_geometry()
+        print "Screen resolution: " 
+        print "Workarea width and height: ", Workarea.get_screen_width(), Workarea.get_screen_height()
         print "Window title: ", window.get_name()
         print "Window width and height", window_geometry["width"], window_geometry["height"] , "+ frame size: ", window.get_frame_extents()
         print "Window position", window_geometry["x"], window_geometry["y"]    

@@ -155,35 +155,35 @@
 "name":"move-window-to-east",
 "keybind": ["<Super>KP_Right","<Super>KP_6"],
 "function" : "move_single_window",
-"parameters":["w-ww", "h/2-wh/2"]
+"parameters":["w-ww", "h/2-(wh/2+wft)"]
 },
 
 {
 "name":"move-window-to-southeast",
 "keybind": ["<Super>KP_Page_Down","<Super>KP_3"],
 "function" : "move_single_window",
-"parameters":["w-ww", "h-wh"]
+"parameters":["w-ww", "h-wh-wft-wfb"]
 },
 
 {
 "name":"move-window-to-south",
 "keybind": ["<Super>KP_Down","<Super>KP_2"],
 "function" : "move_single_window",
-"parameters":["w/2-ww/2", "h-wh"]
+"parameters":["w/2-ww/2", "h-wh-wft-wfb"]
 },
 
 {
 "name":"move-window-to-southwest",
 "keybind": ["<Super>KP_End","<Super>KP_1"],
 "function" : "move_single_window",
-"parameters":["0", "h-wh"]
+"parameters":["0", "h-wh-wft-wfb"]
 },
 
 {
 "name":"move-window-to-west",
 "keybind": ["<Super>KP_Left","<Super>KP_4"],
 "function" : "move_single_window",
-"parameters":["0", "h/2-wh/2"]
+"parameters":["0", "(wh/2+wft)"]
 },
 
 {

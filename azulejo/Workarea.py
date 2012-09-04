@@ -33,6 +33,7 @@ class Workarea(object):
     
     @staticmethod
     def get_upper_corner():
+        print "upper corner",Workarea._root_window.get_full_property(Workarea.atom("_NET_WORKAREA"), X.AnyPropertyType).value[:2]
         return Workarea._root_window.get_full_property(Workarea.atom("_NET_WORKAREA"), X.AnyPropertyType).value[:2]
     
     @staticmethod

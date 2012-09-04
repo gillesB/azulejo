@@ -20,11 +20,23 @@ class Window:
         extents = self.get_property_value("_NET_FRAME_EXTENTS")
 
         if extents != None:
-            return extents
+            return {'left': extents[0], 'right': extents[1], 'top': extents[2], 'bottom': extents[3]}
         else:
-            return [0,0,0,0]
+            return {'left': 0, 'right': 0, 'top': 0, 'bottom': 0}
         
     def move(self,x,y):
+        self.reset()
+        print x,y
+        
+        x += Workarea.get_upper_corner_X()
+        y += Workarea.get_upper_corner_Y()
+        
+        frame_extents = self.get_frame_extents()
+        x -= (frame_extents["left"] + frame_extents["right"])
+        #y -= (frame_extents[2] + frame_extents[3])
+        
+        print x,y        
+    
         self.XWindow.configure(x=x, y=y)
         self.__display.flush()
         
@@ -135,8 +147,8 @@ class Window:
         
         #subtract frame extents from window size
         frame_extents = self.get_frame_extents()
-        width -= (frame_extents[0] + frame_extents[1])
-        height -= (frame_extents[2] + frame_extents[3])
+        width -= (frame_extents["left"] + frame_extents["right"])
+        height -= (frame_extents["top"] + frame_extents["bottom"])
 
         # This is for compiz (and any other viewport-style WM?)...
         # looks like we don't need to translate

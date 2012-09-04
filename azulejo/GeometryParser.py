@@ -26,6 +26,11 @@ class GeometryParser(object):
         window_geometry = window.get_geometry()
         expression = expression.replace('ww', str(window_geometry["width"]))
         expression = expression.replace('wh', str(window_geometry["height"]))
+        frame_extents = window.get_frame_extents()
+        expression = expression.replace('wfl', str(frame_extents["left"]))
+        expression = expression.replace('wfr', str(frame_extents["right"]))
+        expression = expression.replace('wft', str(frame_extents["top"]))
+        expression = expression.replace('wfb', str(frame_extents["bottom"]))
 
         expression = GeometryParser.parse_simple_math_expressions(expression)
 
@@ -33,10 +38,8 @@ class GeometryParser(object):
 
     @staticmethod
     def parse_window_move_geometry(window, geometry):
-        print geometry
         for i in range(len(geometry)):
             geometry[i] = GeometryParser.parse_simple_math_window_move_expression(window, geometry[i])
-        print geometry
         return geometry
 
     @staticmethod
