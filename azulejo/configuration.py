@@ -12,12 +12,11 @@ import json
 import os.path
 from collections import deque
 
-
-branch = ""
-conf_filename = "~/.azulejo/config" + branch + ".js"
+conf_filename = "~/.azulejo/config.js"
 filenames = { conf_filename : "initial_config.json", \
-			 "~/.azulejo/Shortcuts/numpad" + branch + ".js" : "initial_shortcuts_numpad.json", \
-			 "~/.azulejo/Shortcuts/no_numpad" + branch + ".js" : "initial_shortcuts_no_numpad.json"}
+			"~/.azulejo/functions.js" : "initial_functions.json", \
+			 "~/.azulejo/Shortcuts/numpad.js" : "initial_shortcuts_numpad.json", \
+			 "~/.azulejo/Shortcuts/no_numpad.js" : "initial_shortcuts_no_numpad.json"}
 expanded_filenames = {}
 shortcut_filenames = deque()
 
@@ -56,7 +55,6 @@ def check_initial_files():
 		if not os.path.isfile(expanded_filename):
 			print "Starting azulejo by creating file: '%s'" % (expanded_filename)
 			create_initial_file(filename)
-	   
 
 def get_config_data():
 	
