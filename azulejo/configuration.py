@@ -14,7 +14,6 @@ from collections import deque
 
 conf_filename = "~/.azulejo/config.js"
 filenames = { conf_filename : "initial_config.json", \
-			"~/.azulejo/functions.js" : "initial_functions.json", \
 			 "~/.azulejo/Shortcuts/numpad.js" : "initial_shortcuts_numpad.json", \
 			 "~/.azulejo/Shortcuts/no_numpad.js" : "initial_shortcuts_no_numpad.json"}
 expanded_filenames = {}
