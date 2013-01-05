@@ -17,10 +17,15 @@ This is where Azulejo comes in, it adds some tiling features but leaves your win
 
 Simply run the ''run.py'' file present on the project's root dir.
 Required:
+
 Gtk3
+
 gir1.2-keybinder-3.0
+
 python-xlib
+
 python-notify2
+
 
 ## Usage
 
