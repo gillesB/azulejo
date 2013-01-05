@@ -14,7 +14,7 @@ class WindowFetcher(object):
         return Window(XID)
     
     @staticmethod
-    def print_window_info():
+    def print_window_info(keybinding, param):
         window = WindowFetcher.get_active_window()
         assert isinstance(window, Window)
         window_geometry = window.get_geometry()
