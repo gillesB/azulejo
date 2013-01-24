@@ -15,7 +15,17 @@ This is where Azulejo comes in, it adds some tiling features but leaves your win
 
 ## Installation
 
-You can install Azulejo using distutils or simply run the ''run.py'' file present on the project's root dir. Read the INSTALL file for more info.
+Simply run the ''run.py'' file present on the project's root dir.
+Required:
+
+Gtk3
+
+gir1.2-keybinder-3.0
+
+python-xlib
+
+python-notify2
+
 
 ## Usage
 
