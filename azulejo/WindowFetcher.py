@@ -50,7 +50,9 @@ class WindowFetcher(object):
     @staticmethod      
     def window_is_window_type_normal(window):
         assert isinstance(window, Window)
-        if window.get_window_type() == Workarea.atom("_NET_WM_WINDOW_TYPE_NORMAL"):
+        window_type = window.get_window_type()
+        if (window_type == Workarea.atom("_NET_WM_WINDOW_TYPE_NORMAL")
+            or (window_type is None and window.get_transient_for() is None)):
                 return True
         return False
 

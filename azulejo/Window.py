@@ -37,7 +37,10 @@ class Window:
         return self.get_property_value("_NET_WM_DESKTOP")[0]
     
     def get_window_type(self):
-        return self.get_property_value("_NET_WM_WINDOW_TYPE")[0]
+        return (self.get_property_value("_NET_WM_WINDOW_TYPE") or [None])[0]
+
+    def get_transient_for(self):
+        return self.get_property_value("WM_TRANSIENT_FOR")
         
     def get_property_value(self, name):
         propt = self.XWindow.get_full_property(self.__display.intern_atom(name), X.AnyPropertyType)
