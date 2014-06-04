@@ -22,7 +22,7 @@ Required Packages:
 * python-xlib
 * python-notify2
 
-Simply run the ''run.py'' file present on the project's root dir.
+Afterwards simply run the ''run.py'' file present on the project's root dir.
 
 
 ## Usage
