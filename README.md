@@ -84,7 +84,9 @@ Azulejo comes with two default keymaps. One uses the numpad (keypad), the other 
 Azulejo configurations are stored on ''~/.azulejo/config.js''.
 The keymaps are stored in ''~/.azulejo/Shortcuts''
 
-TODO: add/explain example
+To start Azulejo with the 'no numpad' keymap by default, change the
+`shortcut_file_to_load` entry in ''~/.azulejo/config.js'' to
+`"~/.azulejo/Shortcuts/no_numpad.js"`.
 
 ## Author
 
