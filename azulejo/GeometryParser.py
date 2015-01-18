@@ -14,9 +14,9 @@ class GeometryParser(object):
     def parse_simple_math_expressions(expression):
         expression = str(expression)
         #width
-        expression = expression.replace('w', str(Workarea.get_screen_width()))#+Workarea.get_upper_corner_X()))
+        expression = expression.replace('w', str(Workarea.get_workarea_width()))#+Workarea.get_upper_corner_X()))
         #height
-        expression = expression.replace('h', str(Workarea.get_screen_height()))#+Workarea.get_upper_corner_Y()))
+        expression = expression.replace('h', str(Workarea.get_workarea_height()))#+Workarea.get_upper_corner_Y()))
         return eval(expression)
     
     @staticmethod

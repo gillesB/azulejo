@@ -8,7 +8,7 @@ import configuration
 import notify2
 from Workarea import Workarea
 from WindowHandler import WindowHandler
-from WindowFetcher import WindowFetcher
+from WindowTools import WindowTools
 
 
 def run():
@@ -78,7 +78,7 @@ class Azulejo:
         notify2.init("Azulejo")
         Keybinder.init()
 
-        Keybinder.bind("<Super>y", WindowFetcher.print_window_info, None)
+        Keybinder.bind("<Super>y", WindowTools.print_window_info, None)
         Keybinder.bind("<Super>c", self.switch_config_files, None)
 
         self.bind_keys(configuration.get_config_data_first_time())

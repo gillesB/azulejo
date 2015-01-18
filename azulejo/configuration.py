@@ -20,13 +20,13 @@ shortcut_filenames = deque()
 
 
 def read_file(path):
-    '''
+    """
     Returns file content as string.
-    @type path: str
-    @rtype: str
-    @return: file as string
-    '''
-    """Returns file content as string."""
+
+    :type path: str
+    :rtype: str
+    :return: file as string
+    """
     file_handler = open(path, 'r')
     content = file_handler.read()
     file_handler.close()
@@ -34,13 +34,14 @@ def read_file(path):
 
 
 def get_initial_content(filename):
-    '''
+    """
     Returns the initial values as string.
-    @param filename: a key used in the C{filenames}
-    @type filename: str
-    @rtype: str
-    @return: content of the initial file
-    '''
+
+    :param filename: a key used in the ``filenames``
+    :type filename: str
+    :rtype: str
+    :return: content of the initial file
+    """
     this_dir = os.path.dirname(os.path.abspath(__file__))
     #get the name of the appropriate initial file, then get the path of that file
     initial_config_path = os.path.join(this_dir, filenames[filename])
@@ -49,9 +50,10 @@ def get_initial_content(filename):
 
 def create_initial_file(filename):
     '''
-    Creates the file with its content for the given C{filename}
-    @param filename: a key used in the C{filenames}
-    @type filename: String
+    Creates the file with its content for the given ``filename``
+
+    :param filename: a key used in the ``filenames``
+    :type filename: String
     '''
     #check if the path to the directory exists
     conf_dir = os.path.dirname(expanded_filenames[filename])
@@ -67,7 +69,7 @@ def create_initial_file(filename):
 
 def check_initial_files():
     '''
-    Checks if the files from the C{filenames}-dict exist, if not they will be created.
+    Checks if the files from the ``filenames``-dict exist, if not they will be created.
     '''
     for filename in filenames.iterkeys():
         expanded_filename = os.path.expanduser(filename)
@@ -82,8 +84,9 @@ def get_config_data():
     Reads the config file as json and gets the path of the shortcut file from it.
     That shortcut file is then parsed. The parsed content is then returned as a list,
     which contains dicts with information about the actions.
-    @rtype: list
-    @return: A list of dicts, containing information about an action
+
+    :rtype: list
+    :return: A list of dicts, containing information about an action
     '''
     expanded_conf_filename = expanded_filenames[conf_filename]
     json_string = read_file(os.path.expanduser(expanded_conf_filename))
@@ -103,10 +106,11 @@ def get_config_data_first_time():
     '''
     Checks if the initial config files already exist, if not then they are created.
     Then checks which config files exists, as the user might have added a file himself.
-    The path to these files is saved in the global deque C{shortcut_filenames}.
-    Finally reads and returns config data via C{get_config_data}.
-    @rtype: list
-    @return: Returns config data
+    The path to these files is saved in the global deque ``shortcut_filenames``.
+    Finally reads and returns config data via ``get_config_data``.
+
+    :rtype: list
+    :return: Returns config data
     '''
     # TODO remove global variable. Thus configuration needs to be a class.
     global shortcut_filenames
@@ -120,8 +124,9 @@ def get_config_data_first_time():
 def switch_shortcut_file():
     '''
     Load the next shortcut file and return its name as string
-    @rtype: str
-    @return: a filename key used in the C{filenames}
+
+    :rtype: str
+    :return: a filename key used in the ``filenames``
     '''
     # TODO remove global variable. Thus configuration needs to be a class.
     global shortcut_filenames
