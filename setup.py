@@ -1,8 +1,7 @@
 from setuptools import setup
 
-
-#see http://pypi.python.org/pypi/stdeb for package building instructions
-#or else here: https://github.com/astraw/stdeb
+# See http://pypi.python.org/pypi/stdeb for package building instructions
+# or else here: https://github.com/astraw/stdeb
 
 setup(name='azulejo',
       version='0.1',
