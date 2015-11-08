@@ -1,27 +1,19 @@
 If you are in debian or ubuntu system, run this command
-to install all required packages::
+to install all required packages:
 
-    sudo apt-get install python-keybinder python-wnck
+    sudo apt-get install gir1.2-keybinder-3.0 python-xlib python-notify2
 
 
-and then, to init azulejo you can run::
+and then, to init azulejo you can run:
 
     python run.py
 
 
-or to install::
+or to install:
 
+    sudo apt-get install gir1.2-keybinder-3.0 python-xlib
     sudo python setup.py install
 
-and then, from any path you can run::
+and then, from any path you can run:
 
     azulejo
-
-
-Tip: if you area a develop, and want to
-get updated version of azulejo, you can
-run:
-
-    sudo python setup.py develop
-
-in the repository working dir.
