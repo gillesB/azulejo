@@ -14,4 +14,5 @@ setup(name='azulejo',
       },
       include_package_data=True,
       scripts=['bin/azulejo'],
+      install_requires=['pygobject', 'python-xlib', 'notify2'],
       )
