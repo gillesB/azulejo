@@ -1,8 +1,7 @@
 from setuptools import setup
 
-
-#see http://pypi.python.org/pypi/stdeb for package building instructions
-#or else here: https://github.com/astraw/stdeb
+# See http://pypi.python.org/pypi/stdeb for package building instructions
+# or else here: https://github.com/astraw/stdeb
 
 setup(name='azulejo',
       version='0.1',
@@ -14,4 +13,5 @@ setup(name='azulejo',
       },
       include_package_data=True,
       scripts=['bin/azulejo'],
+      install_requires=['pygobject', 'python-xlib', 'notify2'],
       )
