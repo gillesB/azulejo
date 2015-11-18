@@ -15,6 +15,14 @@ Prefix: %{_prefix}
 BuildArch: noarch
 Vendor: Gilles Baatz <baatzgilles@gmail.com>
 
+Requires: python-xlib
+Requires: python-notify2
+%if (0%{?fedora} < 23)
+Requires: pygobject3
+%else
+Requires: python-gobject
+%endif
+
 %description
 Azulejo was originally a port (an attempt to) of winsplit revolution's
 functionality to *nix desktop environments. This fork also adds Compiz's Put
