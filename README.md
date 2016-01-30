@@ -17,12 +17,23 @@ This is where Azulejo comes in, it adds some tiling features but leaves your win
 
 Required Packages:
 
+### Ubuntu
+
 * Gtk3
 * gir1.2-keybinder-3.0
 * python-xlib
-* python-notify2
+* python-notify2 
 
-Afterwards simply run the ''run.py'' file present on the project's root dir.
+### Arch
+
+* Gtk3
+* libkeybinder3
+* python2-xlib
+* python2-notify2 (AUR)
+
+Azulejo works probably also with other Linux distributions, but the packages might be named differently.
+
+Afterwards simply run the ''run.py'' file present on the project's root dir. Make sure that Python 2.7 is used, it will not work with Python 3.
 
 
 ## Usage
