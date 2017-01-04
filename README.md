@@ -15,20 +15,23 @@ This is where Azulejo comes in, it adds some tiling features but leaves your win
 
 ## Installation
 
-Required Packages:
+C.f. the `INSTALL` file. Arch Linux users can install Azulejo from AUR: https://aur.archlinux.org/packages/azulejo-git/ 
 
-### Ubuntu
+### Required Packages for manual installation:
+
+#### Ubuntu
 
 * Gtk3
 * gir1.2-keybinder-3.0
 * python-xlib
 * python-notify2 
 
-### Arch
+#### Arch Linux
 
 * Gtk3
 * libkeybinder3
 * python2-xlib
+* python2-gobject
 * python2-notify2 (AUR)
 
 Azulejo works probably also with other Linux distributions, but the packages might be named differently.
